@@ -1,0 +1,4 @@
+package: summer
+import:
+- package: github.com/gin-gonic/gin
+- package: github.com/spf13/viper
