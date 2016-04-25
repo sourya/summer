@@ -1,8 +1,10 @@
-package summer
+package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"github.com/julienschmidt/httprouter"
 	"github.com/spf13/viper"
+	"net/http"
+	"strings"
 )
 
 func init() {
@@ -12,10 +14,16 @@ func init() {
 }
 
 func main() {
-	router := gin.Default()
+	router := httprouter.New()
 
-	// Internal routing module
-	router(*router)
+	router.GET("/:path", Read)
+	router.PUT("/:path", Write)
+	router.DELETE("/:path", Detele)
+	router.POST("/:path", Modify)
 
-	router.Run(":" + viper.Get("appPort").(string))
+	log.Fatal(http.ListenAndServe(":"+viper.Get("appPort").(string), router))
+}
+
+func isFolder(path string) bool {
+	return strings.HasSuffix(path, "/")
 }
