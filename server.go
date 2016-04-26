@@ -3,8 +3,10 @@ package main
 import (
 	"github.com/julienschmidt/httprouter"
 	"github.com/spf13/viper"
+	"log"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func init() {
@@ -13,13 +15,21 @@ func init() {
 	_ = viper.ReadInConfig()
 }
 
+type ResponseObj struct {
+	Operation string    `json:"operation"`
+	Err       error     `json:"error"`
+	Timestamp time.Time `json:"timestamp"`
+	Path      string    `json:"path"`
+	Content   []string  `json:"content"`
+}
+
 func main() {
 	router := httprouter.New()
 
-	router.GET("/:path", Read)
-	router.PUT("/:path", Write)
-	router.DELETE("/:path", Detele)
-	router.POST("/:path", Modify)
+	router.GET("/:path", reader)
+	router.PUT("/:path", writer)
+	// router.DELETE("/:path", detele)
+	// router.POST("/:path", modify)
 
 	log.Fatal(http.ListenAndServe(":"+viper.Get("appPort").(string), router))
 }

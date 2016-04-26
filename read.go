@@ -12,43 +12,25 @@ func reader(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	path := ps.ByName("path")
 
 	if isFolder(path) == true {
-		readFolder(w, r, ps, path)
+		readFolder(w, r, path)
 	} else {
-		readFile(w, r, ps, path)
+		readFile(w, r, path)
 	}
 }
 
-func readFolder(w http.ResponseWriter, r *http.Request, ps httprouter.Params, path string) {
-	type Response struct {
-		Status    string    `json:"status"`
-		Err       error     `json:"error"`
-		Timestamp time.Time `json:"timestamp"`
-		Path      string    `json:"path"`
-		Content   []string  `json:"content"`
-	}
-
+func readFolder(w http.ResponseWriter, r *http.Request, path string) {
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
-		message := Response{"err", err, time.Now(), path, []string{}}
-		response, err := json.Marshal(message)
-
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-		w.Write(response)
+		errorHandler(w, r, "read", err, path)
 	}
 
 	dirList := []string{}
 
 	for _, file := range files {
-		dirList = append(dirList, file)
+		dirList = append(dirList, file.Name())
 	}
 
-	message := Response{"ok", nil, time.Now(), path, dirList}
+	message := ResponseObj{"read", nil, time.Now(), path, dirList}
 	response, err := json.Marshal(message)
 
 	w.Header().Set("Content-Type", "application/json")
@@ -56,31 +38,13 @@ func readFolder(w http.ResponseWriter, r *http.Request, ps httprouter.Params, pa
 	w.Write(response)
 }
 
-func readFile(w http.ResponseWriter, r *http.Request, ps httprouter.Params, path string) {
-	type Response struct {
-		Status    string    `json:"status"`
-		Err       error     `json:"error"`
-		Timestamp time.Time `json:"timestamp"`
-		Path      string    `json:"path"`
-		Content   string    `json:"content"`
-	}
-
-	content, err := ioutil.ReadFile(path)
+func readFile(w http.ResponseWriter, r *http.Request, path string) {
+	_, err := ioutil.ReadFile(path)
 	if err != nil {
-		message := Response{"err", err, time.Now(), path, ""}
-		response, err := json.Marshal(message)
-
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-		w.Write(response)
+		errorHandler(w, r, "read", err, path)
 	}
 
-	message := Response{"ok", nil, time.Now(), path, content}
+	message := ResponseObj{"read", nil, time.Now(), path, []string{}}
 	response, err := json.Marshal(message)
 
 	w.Header().Set("Content-Type", "application/json")

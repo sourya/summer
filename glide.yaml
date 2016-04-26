@@ -1,4 +1,4 @@
 package: main
 import:
-- package: github.com/gin-gonic/gin
+- package: github.com/julienschmidt/httprouter
 - package: github.com/spf13/viper
