@@ -22,32 +22,40 @@ func readFolder(w http.ResponseWriter, r *http.Request, path string) {
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
 		errorHandler(w, r, "read", err, path)
+	} else {
+		dirList := []string{}
+
+		for _, file := range files {
+			dirList = append(dirList, file.Name())
+		}
+
+		message := ResponseObj{"read", nil, time.Now(), path, dirList}
+		response, err := json.Marshal(message)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write(response)
 	}
-
-	dirList := []string{}
-
-	for _, file := range files {
-		dirList = append(dirList, file.Name())
-	}
-
-	message := ResponseObj{"read", nil, time.Now(), path, dirList}
-	response, err := json.Marshal(message)
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	w.Write(response)
 }
 
 func readFile(w http.ResponseWriter, r *http.Request, path string) {
-	_, err := ioutil.ReadFile(path)
+	content, err := ioutil.ReadFile(path)
 	if err != nil {
 		errorHandler(w, r, "read", err, path)
+	} else {
+		message := ResponseObj{"read", nil, time.Now(), path, string(content)}
+		response, err := json.Marshal(message)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write(response)
 	}
-
-	message := ResponseObj{"read", nil, time.Now(), path, []string{}}
-	response, err := json.Marshal(message)
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	w.Write(response)
 }

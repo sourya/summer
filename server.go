@@ -16,21 +16,22 @@ func init() {
 }
 
 type ResponseObj struct {
-	Operation string    `json:"operation"`
-	Err       error     `json:"error"`
-	Timestamp time.Time `json:"timestamp"`
-	Path      string    `json:"path"`
-	Content   []string  `json:"content"`
+	Operation string      `json:"operation"`
+	Err       error       `json:"error"`
+	Timestamp time.Time   `json:"timestamp"`
+	Path      string      `json:"path"`
+	Content   interface{} `json:"content"`
 }
 
 func main() {
 	router := httprouter.New()
 
-	router.GET("/:path", reader)
-	router.PUT("/:path", writer)
+	router.GET("/*path", reader)
+	router.PUT("/*path", writer)
 	// router.DELETE("/:path", detele)
 	// router.POST("/:path", modify)
 
+	log.Println("Summer server listening at port" + ":" + viper.Get("appPort").(string))
 	log.Fatal(http.ListenAndServe(":"+viper.Get("appPort").(string), router))
 }
 

@@ -7,9 +7,8 @@ import (
 )
 
 func errorHandler(w http.ResponseWriter, r *http.Request, operation string, err error, path string) {
-	message := ResponseObj{operation, err, time.Now(), path, []string{}}
+	message := ResponseObj{operation, err, time.Now(), path, ""}
 	response, err := json.Marshal(message)
-
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
