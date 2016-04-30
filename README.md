@@ -1,8 +1,8 @@
 # Summer
 
-HTTP <-> VFS Adapter
+HTTP <-> File System Adapter
 
-Interact with the virtual file system (VFS) via REST API calls
+Interact with Linux file system via REST API calls
 
 ## Usage
 
@@ -28,15 +28,14 @@ Delete a file.
 
 #### `DELETE /directory/path/with/slash/`
 
-Delete a directory (not recursive)
+Delete a directory (Recursive)
 
 
 #### `POST /path/to/target`
 
-Rename (or) copy a file or folder
+Rename (or) copy a file or folder (Recursive)
 
 The client sends a JSON body containing the request information.
 
  - {"renameFrom": from} - rename a file from `from` to `target`.
  - {"copyFrom": from} - copy a file from `from` to `target`.
- - {"linkTo": data} - create a symlink at `target` containing `data`.

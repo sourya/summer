@@ -5,7 +5,6 @@ import (
 	"github.com/spf13/viper"
 	"log"
 	"net/http"
-	"strings"
 	"time"
 )
 
@@ -29,12 +28,8 @@ func main() {
 	router.GET("/*path", readHandler)
 	router.PUT("/*path", writeHandler)
 	router.DELETE("/*path", deleteHandler)
-	// router.POST("/:path", modify)
+	router.POST("/*path", modifyHandler)
 
 	log.Println("Summer server listening at port" + ":" + viper.Get("appPort").(string))
 	log.Fatal(http.ListenAndServe(":"+viper.Get("appPort").(string), router))
-}
-
-func isFolder(path string) bool {
-	return strings.HasSuffix(path, "/")
 }
