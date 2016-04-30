@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func writer(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func writeHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	path := ps.ByName("path")
 
 	if isFolder(path) == true {

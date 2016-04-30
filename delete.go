@@ -3,33 +3,27 @@ package main
 import (
 	"encoding/json"
 	"github.com/julienschmidt/httprouter"
-	"io/ioutil"
 	"net/http"
+	"os"
 	"time"
 )
 
-func readHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func deleteHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	path := ps.ByName("path")
 
 	if isFolder(path) == true {
-		readFolder(w, r, path)
+		deleteFile(w, r, path)
 	} else {
-		readFile(w, r, path)
+		deleteFolder(w, r, path)
 	}
 }
 
-func readFolder(w http.ResponseWriter, r *http.Request, path string) {
-	files, err := ioutil.ReadDir(path)
+func deleteFolder(w http.ResponseWriter, r *http.Request, path string) {
+	err := os.RemoveAll(path)
 	if err != nil {
-		errorHandler(w, r, "read", err, path)
+		errorHandler(w, r, "delete", err, path)
 	} else {
-		dirList := []string{}
-
-		for _, file := range files {
-			dirList = append(dirList, file.Name())
-		}
-
-		message := ResponseObj{"read", nil, time.Now(), path, dirList}
+		message := ResponseObj{"delete", nil, time.Now(), path, ""}
 		response, err := json.Marshal(message)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -42,12 +36,12 @@ func readFolder(w http.ResponseWriter, r *http.Request, path string) {
 	}
 }
 
-func readFile(w http.ResponseWriter, r *http.Request, path string) {
-	content, err := ioutil.ReadFile(path)
+func deleteFile(w http.ResponseWriter, r *http.Request, path string) {
+	err := os.Remove(path)
 	if err != nil {
-		errorHandler(w, r, "read", err, path)
+		errorHandler(w, r, "delete", err, path)
 	} else {
-		message := ResponseObj{"read", nil, time.Now(), path, string(content)}
+		message := ResponseObj{"delete", nil, time.Now(), path, ""}
 		response, err := json.Marshal(message)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)

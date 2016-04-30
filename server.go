@@ -26,9 +26,9 @@ type ResponseObj struct {
 func main() {
 	router := httprouter.New()
 
-	router.GET("/*path", reader)
-	router.PUT("/*path", writer)
-	// router.DELETE("/:path", detele)
+	router.GET("/*path", readHandler)
+	router.PUT("/*path", writeHandler)
+	router.DELETE("/*path", deleteHandler)
 	// router.POST("/:path", modify)
 
 	log.Println("Summer server listening at port" + ":" + viper.Get("appPort").(string))
