@@ -6,6 +6,10 @@ HTTP <-> File System Adapter. Interact with Linux file system via REST API calls
 
 - Download `summer` from here - [https://github.com/dolftax/summer/releases/download/v1.0.0/summer](https://github.com/dolftax/summer/releases/download/v1.0.0/summer)
 
+- `cd summer`
+
+- Populate `config.json` with necessary values.
+
 - Add `config.json` in same directory. Default values are
 
 ```
