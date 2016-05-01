@@ -4,9 +4,25 @@ HTTP <-> File System Adapter. Interact with Linux file system via REST API calls
 
 ## Usage
 
+### Choose how to Install
+
+#### Default Configuration
+
+- Download `summer` from here - [https://github.com/dolftax/summer/releases/download/v1.0.0/summer](https://github.com/dolftax/summer/releases/download/v1.0.0/summer)
+
+- Run `./summer`
+
+#### Custom Configuration
+
+- Clone `summer` repository
+
+- Install [glide](https://github.com/Masterminds/glide#install)
+
+- Run `cd summer && glide install`
+
 - Populate `config.json` with necessary values
 
-#### Default Values
+- Default values are
 
 ```
 "appPort" - Application Port (Default: 9000)
@@ -16,43 +32,59 @@ HTTP <-> File System Adapter. Interact with Linux file system via REST API calls
 
 > Note: If you want to serve `/home/foo/` set `root` to `/home/foo` (Do not append forward slash `/`)
 
+- Compile into binary by running `go build .`
+
 - Run `./summer`
 
 ## API Docs
 
+### Request
+
 ##### `GET /path/to/file`
 
-Serve a file to the client as a stream
+Serve a file to the client as a stream.
 
 ##### `GET /directory/path/with/slash/`
 
-Serve a directory listing as a JSON document
+Serve a directory listing as a JSON document.
 
 ##### `PUT /path/to/file`
 
-Recieve a file from the client and save it to the vfs.  The file body is streamed
+Recieve a file from the client and save it to the vfs.  The file body is streamed.
 
 ##### `PUT /directory/path/with/slash/`
 
-Create a directory
+Create a directory.
 
 ##### `DELETE /path/to/file`
 
-Delete a file
+Delete a file.
 
 ##### `DELETE /directory/path/with/slash/`
 
-Delete a directory (Recursive)
+Delete a directory. (Recursive)
 
 
 ##### `POST /path/to/target`
 
-Rename (or) copy a file (or) folder (Recursive)
+Rename (or) copy a file (or) folder. (Recursive)
 
-The client sends a JSON body containing the request information
+The client sends a JSON body containing the request information.
 
  - `{"renameFrom": from}` - rename a file from `from` to `target`
  - `{"copyFrom": from}` - copy a file from `from` to `target`
+
+### Sample Response
+
+```
+{
+  "operation": "read",
+  "error": 0,
+  "timestamp": "2016-05-01T21:17:23.300999013+05:30",
+  "path": "/home/foo/bar",
+  "content": "This is the content of file bar"
+}
+```
 
 ## Error handling
 
