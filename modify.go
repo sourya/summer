@@ -7,7 +7,7 @@ import (
 )
 
 func modifyHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	toPath := ps.ByName("path")
+	toPath := setRoot(ps.ByName("path"))
 
 	buffer := new(bytes.Buffer)
 	buffer.ReadFrom(r.Body)

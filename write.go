@@ -9,7 +9,7 @@ import (
 )
 
 func writeHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	path := ps.ByName("path")
+	path := setRoot(ps.ByName("path"))
 
 	if isFolder(path) == true {
 		errCode := writeFolder(w, r, path)

@@ -7,7 +7,7 @@ import (
 )
 
 func deleteHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	path := ps.ByName("path")
+	path := setRoot(ps.ByName("path"))
 
 	if isFolder(path) == true {
 		errCode := deleteFile(w, r, path)

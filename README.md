@@ -1,44 +1,58 @@
 # Summer
 
-HTTP <-> File System Adapter
-
-Interact with Linux file system via REST API calls
+HTTP <-> File System Adapter. Interact with Linux file system via REST API calls.
 
 ## Usage
 
-#### `GET /path/to/file`
+- Populate `config.json` with necessary values
 
-Serve a file to the client as a stream.
+#### Default Values
 
-#### `GET /directory/path/with/slash/`
+```
+"appPort" - Application Port (Default: 9000)
+"logger"  - Enable/Disable access logs (Default: true)
+"root"    - Root Folder to be served (Default: "")
+```
 
-Serve a directory listing as a JSON document.
+> Note: If you want to serve `/home/foo/` set `root` to `/home/foo` (Do not append forward slash `/`)
 
-#### `PUT /path/to/file`
+- Run `./summer`
 
-Recieve a file from the client and save it to the vfs.  The file body is streamed.
+## API Docs
 
-#### `PUT /directory/path/with/slash/`
+##### `GET /path/to/file`
+
+Serve a file to the client as a stream
+
+##### `GET /directory/path/with/slash/`
+
+Serve a directory listing as a JSON document
+
+##### `PUT /path/to/file`
+
+Recieve a file from the client and save it to the vfs.  The file body is streamed
+
+##### `PUT /directory/path/with/slash/`
 
 Create a directory
 
-#### `DELETE /path/to/file`
+##### `DELETE /path/to/file`
 
-Delete a file.
+Delete a file
 
-#### `DELETE /directory/path/with/slash/`
+##### `DELETE /directory/path/with/slash/`
 
 Delete a directory (Recursive)
 
 
-#### `POST /path/to/target`
+##### `POST /path/to/target`
 
-Rename (or) copy a file or folder (Recursive)
+Rename (or) copy a file (or) folder (Recursive)
 
-The client sends a JSON body containing the request information.
+The client sends a JSON body containing the request information
 
- - {"renameFrom": from} - rename a file from `from` to `target`.
- - {"copyFrom": from} - copy a file from `from` to `target`.
+ - `{"renameFrom": from}` - rename a file from `from` to `target`
+ - `{"copyFrom": from}` - copy a file from `from` to `target`
 
 ## Error handling
 

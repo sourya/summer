@@ -2,9 +2,14 @@ package main
 
 import (
 	"encoding/json"
+	"github.com/spf13/viper"
 	"net/http"
 	"strings"
 )
+
+func setRoot(path string) string {
+	return viper.Get("root").(string) + path
+}
 
 func isFolder(path string) bool {
 	return strings.HasSuffix(path, "/")
