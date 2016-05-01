@@ -1,3 +1,4 @@
 {
-  "appPort": "9000"
+  "appPort": "9000",
+  "logger": true
 }

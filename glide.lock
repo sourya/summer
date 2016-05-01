@@ -1,10 +1,12 @@
-hash: 0b7e4551e9f95f5b270a37d0b8eb3644723b9e0dc16161b5e74eb79e9f4f456a
-updated: 2016-04-26T06:58:04.366361252+05:30
+hash: 27598d314d67f852b9fa2d2d7fe3d9e070ad0187770e6f1ce0aaf6a5a9dd3ab8
+updated: 2016-05-01T12:59:57.657876937+05:30
 imports:
 - name: github.com/BurntSushi/toml
-  version: bbd5bb678321a0d6e58f1099321dfa73391c1b6f
+  version: f0aeabca5a127c4078abb8c8d64298b147264b55
 - name: github.com/fsnotify/fsnotify
   version: 30411dbcefb7a1da7e84f75530ad3abe4011b4f8
+- name: github.com/gorilla/handlers
+  version: 66e6c6f01d8da976ee113437745ca029c2b585a6
 - name: github.com/hashicorp/hcl
   version: 27a57f2605e04995c111273c263d51cee60d9bc4
   subpackages:
@@ -31,11 +33,11 @@ imports:
 - name: github.com/spf13/jwalterweatherman
   version: 33c24e77fb80341fe7130ee7c594256ff08ccc46
 - name: github.com/spf13/pflag
-  version: 8f6a28b0916586e7f22fe931ae2fcfc380b1c0e6
+  version: cb88ea77998c3f024757528e3305022ab50b43be
 - name: github.com/spf13/viper
   version: f904a1790545169368e8d37badd19d1895d94f29
 - name: golang.org/x/sys
-  version: f64b50fbea64174967a8882830d621a18ee1548e
+  version: b776ec39b3e54652e09028aaaaac9757f4f8211a
   subpackages:
   - unix
 - name: gopkg.in/yaml.v2

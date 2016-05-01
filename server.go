@@ -31,5 +31,6 @@ func main() {
 	router.POST("/*path", modifyHandler)
 
 	log.Println("Summer server listening at port" + ":" + viper.Get("appPort").(string))
-	log.Fatal(http.ListenAndServe(":"+viper.Get("appPort").(string), router))
+
+	log.Fatal(http.ListenAndServe(":"+viper.Get("appPort").(string), middleware(router)))
 }
