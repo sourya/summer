@@ -14,26 +14,26 @@ func modifyHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 	requestData := buffer.Bytes()
 
 	if len(requestData) == 0 {
-		errorHandler(w, r, "modify", nil, toPath)
+		errorHandler(w, r, "modify", 1035, toPath) // Request body not found
 	} else {
 		parsedKey, parsedValue := bodyParser(requestData, r, w, toPath)
 		switch parsedKey {
 		case "renameFrom":
-			err := renameHandler(w, r, parsedValue, toPath)
-			if err != nil {
-				errorHandler(w, r, "copy", err, toPath)
+			errCode := renameHandler(w, r, parsedValue, toPath)
+			if errCode != 0 {
+				errorHandler(w, r, "copy", errCode, toPath)
 			}
 			break
 		case "copyFrom":
 			if isFolder(toPath) == true {
-				err := copyFolder(w, r, parsedValue, toPath)
-				if err != nil {
-					errorHandler(w, r, "copy", err, toPath)
+				errCode := copyFolder(w, r, parsedValue, toPath)
+				if errCode != 0 {
+					errorHandler(w, r, "copy", errCode, toPath)
 				}
 			} else {
-				err := copyFile(w, r, parsedValue, toPath)
-				if err != nil {
-					errorHandler(w, r, "copy", err, toPath)
+				errCode := copyFile(w, r, parsedValue, toPath)
+				if errCode != 0 {
+					errorHandler(w, r, "copy", errCode, toPath)
 				}
 			}
 		}

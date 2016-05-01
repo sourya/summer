@@ -35,7 +35,7 @@ func bodyParser(requestData []byte, r *http.Request, w http.ResponseWriter, path
 			}
 			break
 		default:
-			errorHandler(w, r, "write", err, path)
+			errorHandler(w, r, "write", 1037, path) // Unsupported keys in request body
 			break
 		}
 	}

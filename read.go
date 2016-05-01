@@ -10,22 +10,22 @@ func readHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	path := ps.ByName("path")
 
 	if isFolder(path) == true {
-		err := readFolder(w, r, path)
-		if err != nil {
-			errorHandler(w, r, "read", err, path)
+		errCode := readFolder(w, r, path)
+		if errCode != 0 {
+			errorHandler(w, r, "read", errCode, path)
 		}
 	} else {
-		err := readFile(w, r, path)
-		if err != nil {
-			errorHandler(w, r, "read", err, path)
+		errCode := readFile(w, r, path)
+		if errCode != 0 {
+			errorHandler(w, r, "read", errCode, path)
 		}
 	}
 }
 
-func readFolder(w http.ResponseWriter, r *http.Request, path string) (err error) {
+func readFolder(w http.ResponseWriter, r *http.Request, path string) int {
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
-		return err
+		return 1024 // Error reading directory
 	} else {
 		dirList := []string{}
 
@@ -34,17 +34,17 @@ func readFolder(w http.ResponseWriter, r *http.Request, path string) (err error)
 		}
 
 		responseHandler(w, r, "read", path, dirList)
-		return nil
+		return 0
 	}
 }
 
-func readFile(w http.ResponseWriter, r *http.Request, path string) (err error) {
+func readFile(w http.ResponseWriter, r *http.Request, path string) int {
 	content, err := ioutil.ReadFile(path)
 	if err != nil {
-		return err
+		return 1025 // Error reading file
 	} else {
 		responseHandler(w, r, "read", path, string(content))
-		return nil
+		return 0
 	}
-	return nil
+	return 0
 }

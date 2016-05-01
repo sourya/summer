@@ -16,7 +16,7 @@ func init() {
 
 type ResponseObj struct {
 	Operation string      `json:"operation"`
-	Err       error       `json:"error"`
+	Err       int         `json:"error"`
 	Timestamp time.Time   `json:"timestamp"`
 	Path      string      `json:"path"`
 	Content   interface{} `json:"content"`

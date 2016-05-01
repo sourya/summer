@@ -5,12 +5,12 @@ import (
 	"os"
 )
 
-func renameHandler(w http.ResponseWriter, r *http.Request, fromPath string, toPath string) (err error) {
-	err = os.Rename(fromPath, toPath)
+func renameHandler(w http.ResponseWriter, r *http.Request, fromPath string, toPath string) int {
+	err := os.Rename(fromPath, toPath)
 	if err != nil {
-		return err
+		return 1036 // Error renaming file/folder
 	} else {
-		responseHandler(w, r, "rename", toPath, nil)
+		responseHandler(w, r, "rename", toPath, 0)
 	}
-	return nil
+	return 0
 }

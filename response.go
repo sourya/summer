@@ -23,11 +23,11 @@ func responseDispatcher(w http.ResponseWriter, r *http.Request, message Response
 }
 
 func responseHandler(w http.ResponseWriter, r *http.Request, operation string, path string, content interface{}) {
-	message := ResponseObj{operation, nil, time.Now(), path, content}
+	message := ResponseObj{operation, 0, time.Now(), path, content}
 	responseDispatcher(w, r, message, false)
 }
 
-func errorHandler(w http.ResponseWriter, r *http.Request, operation string, err error, path string) {
+func errorHandler(w http.ResponseWriter, r *http.Request, operation string, err int, path string) {
 	message := ResponseObj{operation, err, time.Now(), path, ""}
 	responseDispatcher(w, r, message, true)
 }
