@@ -4,35 +4,15 @@ HTTP <-> File System Adapter. Interact with Linux file system via REST API calls
 
 ## Usage
 
-### Choose how to Install
-
-#### Default Configuration
-
 - Download `summer` from here - [https://github.com/dolftax/summer/releases/download/v1.0.0/summer](https://github.com/dolftax/summer/releases/download/v1.0.0/summer)
 
-- Run `./summer`
-
-#### Custom Configuration
-
-- Clone `summer` repository
-
-- Install [glide](https://github.com/Masterminds/glide#install)
-
-- Run `cd summer && glide install`
-
-- Populate `config.json` with necessary values
-
-- Default values are
+- Add `config.json` in same directory. Default values are
 
 ```
-"appPort" - Application Port (Default: 9000)
+"appPort" - Application Port (Default: "9000")
 "logger"  - Enable/Disable access logs (Default: true)
 "root"    - Root Folder to be served (Default: "")
 ```
-
-> Note: If you want to serve `/home/foo/` set `root` to `/home/foo` (Do not append forward slash `/`)
-
-- Compile into binary by running `go build .`
 
 - Run `./summer`
 
@@ -105,3 +85,27 @@ The client sends a JSON body containing the request information.
 | 1035          | Request body not found             |
 | 1036          | Error renaming file/folder         |
 | 1037          | Unsupported keys in request body   |
+
+## Build Instructions
+
+- Clone `summer` repository
+
+- Install [glide](https://github.com/Masterminds/glide#install)
+
+- Run `cd summer && glide install`
+
+- Populate `config.json` with necessary values
+
+- Default values are
+
+```
+"appPort" - Application Port (Default: 9000)
+"logger"  - Enable/Disable access logs (Default: true)
+"root"    - Root Folder to be served (Default: "")
+```
+
+> Note: If you want to serve `/home/foo/` set `root` to `/home/foo` (Do not append forward slash `/`)
+
+- Compile into binary by running `go build .`
+
+- Run `./summer`
