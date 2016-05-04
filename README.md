@@ -14,7 +14,9 @@ HTTP <-> File System Adapter. Interact with Linux file system via REST API calls
 "root"    - Root Folder to be served (Default: "")
 ```
 
-- Run `./summer`
+- Run `./summer` (Starts the executable with current user's permissions)
+
+> Warning: Do not run the executable as superuser if you are not sure what you are doing
 
 ## API Docs
 
