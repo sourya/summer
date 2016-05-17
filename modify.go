@@ -2,8 +2,9 @@ package main
 
 import (
 	"bytes"
-	"github.com/julienschmidt/httprouter"
 	"net/http"
+
+	"github.com/julienschmidt/httprouter"
 )
 
 func modifyHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -18,6 +19,12 @@ func modifyHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 	} else {
 		parsedKey, parsedValue := bodyParser(requestData, r, w, toPath)
 		switch parsedKey {
+		case "linkTo":
+			errCode := linkHandler(w, r, parsedValue, toPath)
+			if errCode != 0 {
+				errorHandler(w, r, "symlink", errCode, toPath)
+			}
+			break
 		case "renameFrom":
 			errCode := renameHandler(w, r, parsedValue, toPath)
 			if errCode != 0 {

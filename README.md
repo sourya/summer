@@ -87,6 +87,7 @@ The client sends a JSON body containing the request information.
 | 1035          | Request body not found             |
 | 1036          | Error renaming file/folder         |
 | 1037          | Unsupported keys in request body   |
+| 1038          | Error creating symlink             |
 
 ## Build Instructions
 
