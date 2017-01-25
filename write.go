@@ -40,7 +40,6 @@ func writeFolder(w http.ResponseWriter, r *http.Request, path string) int {
 		responseHandler(w, r, "write", path, 0)
 		return 0
 	}
-	return 0
 }
 
 func writeFile(w http.ResponseWriter, r *http.Request, path string, content string) int {
@@ -52,5 +51,4 @@ func writeFile(w http.ResponseWriter, r *http.Request, path string, content stri
 		responseHandler(w, r, "write", path, 0)
 		return 0
 	}
-	return 0
 }

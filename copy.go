@@ -28,7 +28,6 @@ func copyFile(w http.ResponseWriter, r *http.Request, fromPath string, toPath st
 		responseHandler(w, r, "copy", toPath, nil)
 		return 0
 	}
-	return 0
 }
 
 func copyFolder(w http.ResponseWriter, r *http.Request, fromPath string, toPath string) int {

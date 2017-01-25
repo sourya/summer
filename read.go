@@ -46,5 +46,4 @@ func readFile(w http.ResponseWriter, r *http.Request, path string) int {
 		responseHandler(w, r, "read", path, string(content))
 		return 0
 	}
-	return 0
 }

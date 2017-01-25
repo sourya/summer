@@ -22,6 +22,10 @@ type ResponseObj struct {
 	Content   interface{} `json:"content"`
 }
 
+func auth() {
+
+}
+
 func main() {
 	router := httprouter.New()
 

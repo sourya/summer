@@ -28,7 +28,6 @@ func bodyParser(requestData []byte, r *http.Request, w http.ResponseWriter, path
 		case "content":
 			writeFile(w, r, path, value)
 			return "", ""
-			break
 		case "renameFrom":
 			if len(value) != 0 {
 				return key, value
