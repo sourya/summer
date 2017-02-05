@@ -22,10 +22,6 @@ type ResponseObj struct {
 	Content   interface{} `json:"content"`
 }
 
-func auth() {
-
-}
-
 func main() {
 	router := httprouter.New()
 
@@ -36,5 +32,5 @@ func main() {
 
 	log.Println("Summer server listening at port" + ":" + viper.Get("appPort").(string))
 
-	log.Fatal(http.ListenAndServe(":"+viper.Get("appPort").(string), middleware(router)))
+	log.Fatal(http.ListenAndServe(":"+viper.Get("appPort").(string), middleware(authenticator(router))))
 }
