@@ -1,17 +1,10 @@
 version = 1
 
-test_patterns = [
-  
-]
-
-exclude_patterns = [
-  
-]
+test_patterns = ["**/*_test.go"]
 
 [[analyzers]]
-name = 'go'
+name = "go"
 enabled = true
 
-
   [analyzers.meta]
-  import_path = 'github.com/sourya/summer'
+  import_path = "github.com/sourya/summer"
